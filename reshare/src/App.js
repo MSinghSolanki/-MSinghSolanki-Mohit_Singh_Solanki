@@ -3,20 +3,20 @@ import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { FacebookShareButton, WhatsappShareButton, TwitterShareButton, LinkedinShareButton, FacebookIcon, WhatsappIcon, TwitterIcon, LinkedinIcon } from 'react-share';
 import { useLocation, useNavigate } from 'react-router-dom';
-import "./App.css"
+import "./App.css";
 
 function App() {
-  const [display, setDisplay] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('https://pixabay.com/api/?key=38119579-bc9a976021967e74f44f1cf25&q=yellow+flowers&image_type=photo');
+        const response = await axios.get('https://pixabay.com/api/?key=38119579-bc9a976021967e74f44f1cf25&q=Nature+mountains&image_type=photo');
         const images = response.data.hits;
-        setDisplay(images);
         selectRandomImage(images);
+        console.log(response.data.hits[0])
       } catch (error) {
         console.error('Failed to fetch images: ', error);
       }
@@ -32,24 +32,18 @@ function App() {
   };
 
   const getShareUrl = () => {
-    
     if (selectedImage) {
-      const currentUrl = window.location.href;
-      const imageUrl = encodeURIComponent(selectedImage.webformatURL);
-      const shareUrl = `${currentUrl}?imageIndex=${selectedImage.index}&imageUrl=${imageUrl}`;
-      return shareUrl;
+      return selectedImage.webformatURL;
     }
     return window.location.href;
   };
 
   const getImageFromSharedUrl = () => {
     const queryParams = new URLSearchParams(location.search);
-    const imageIndex = queryParams.get('imageIndex');
     const imageUrl = queryParams.get('imageUrl');
 
-    if (imageIndex && imageUrl) {
-      const decodedImageUrl = decodeURIComponent(imageUrl);
-      setSelectedImage({ webformatURL: decodedImageUrl, index: parseInt(imageIndex, 10) });
+    if (imageUrl) {
+      setSelectedImage({ webformatURL: decodeURIComponent(imageUrl) });
     }
   };
 
@@ -60,9 +54,7 @@ function App() {
   const renderMetaTags = () => {
     if (selectedImage) {
       const metaTags = [
-        { property: 'og:title', content: 'Reshare your Image' },
-        { property: 'og:description', content: 'Sharing is caring' },
-        { property: 'og:image', content: selectedImage.webformatURL },
+        { property: 'og:image', content: selectedImage.previewURL },
         { property: 'og:url', content: window.location.href },
       ];
 
@@ -72,34 +64,33 @@ function App() {
     return null;
   };
 
-  
-
   return (
     <div className="App">
       <Helmet>
         {renderMetaTags()}
       </Helmet>
-      <div id="share">
-        {selectedImage && (
-          <div>
-            <img src={selectedImage.webformatURL} alt="Random Image" />
-          </div>
-        )}
-      </div>
+      {selectedImage && (
+        <div id="share">
+          <img src={selectedImage.webformatURL} alt="Shared Image" />
+        </div>
+      )}
       <div id="btn">
-        <FacebookShareButton url={getShareUrl()}>
-          <FacebookIcon size={32} />
-        </FacebookShareButton>
-        <WhatsappShareButton url={getShareUrl()}>
-          <WhatsappIcon size={32} />
-        </WhatsappShareButton>
-        <TwitterShareButton url={getShareUrl()}>
-          <TwitterIcon size={32} />
-        </TwitterShareButton>
-        <LinkedinShareButton url={getShareUrl()}>
-          <LinkedinIcon size={32} />
-        </LinkedinShareButton>
-      
+        {selectedImage && (
+          <>
+            <FacebookShareButton url={getShareUrl()}>
+              <FacebookIcon size={32} />
+            </FacebookShareButton>
+            <WhatsappShareButton url={getShareUrl()}>
+              <WhatsappIcon size={32} />
+            </WhatsappShareButton>
+            <TwitterShareButton url={getShareUrl()}>
+              <TwitterIcon size={32} />
+            </TwitterShareButton>
+            <LinkedinShareButton url={getShareUrl()}>
+              <LinkedinIcon size={32} />
+            </LinkedinShareButton>
+          </>
+        )}
       </div>
     </div>
   );
