@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#share {
+  margin-bottom: 20px;
+}
+
+#sandeep img {
+  max-width: 100%;
+  height: auto;
+}
+
+#btn {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
