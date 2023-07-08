@@ -16,7 +16,7 @@ function App() {
         const response = await axios.get('https://pixabay.com/api/?key=38119579-bc9a976021967e74f44f1cf25&q=Nature+mountains&image_type=photo');
         const images = response.data.hits;
         selectRandomImage(images);
-        console.log(response.data.hits[0])
+        
       } catch (error) {
         console.error('Failed to fetch images: ', error);
       }
@@ -54,10 +54,12 @@ function App() {
   const renderMetaTags = () => {
     if (selectedImage) {
       const metaTags = [
-        { property: 'og:image', content: selectedImage.previewURL },
+        { property: 'og:image', content: selectedImage.webformatURL },
+        { property: 'og:image:width', content: selectedImage.webformatWidth },
+        { property: 'og:image:height', content: selectedImage.webformatHeight },
         { property: 'og:url', content: window.location.href },
       ];
-
+console.log(metaTags)
       return metaTags.map((tag, index) => <meta key={index} property={tag.property} content={tag.content} />);
     }
 
@@ -83,7 +85,7 @@ function App() {
             <WhatsappShareButton url={getShareUrl()}>
               <WhatsappIcon size={32} />
             </WhatsappShareButton>
-            <TwitterShareButton url={getShareUrl()}>
+            <TwitterShareButton url={getShareUrl()} title="Check out this image">
               <TwitterIcon size={32} />
             </TwitterShareButton>
             <LinkedinShareButton url={getShareUrl()}>
