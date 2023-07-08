@@ -1,3 +1,4 @@
+/* Default styles for all devices */
 .App {
   display: flex;
   flex-direction: column;
@@ -10,9 +11,16 @@
   margin-bottom: 20px;
 }
 
-#sandeep img {
+#sandeep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ img {
   max-width: 100%;
   height: auto;
+  margin-bottom: 20px;
 }
 
 #btn {
@@ -20,3 +28,18 @@
   justify-content: center;
   gap: 10px;
 }
+
+/* Media query for 375px width devices and smaller */
+@media (max-width: 375px) {
+   img {
+   width: 20rem;
+  }
+
+  #btn {
+    gap: 8px;
+  }
+}
+
+
+
+
