@@ -12,9 +12,9 @@
 }
 
  img {
-  max-width: 80%;
+  border-radius: 8px;
+  max-width: 100%;
   height: auto;
-  margin-bottom: 20px;
 }
 
 #btn {
@@ -26,7 +26,6 @@
 /* Media query for 375px width devices and smaller */
 @media (max-width: 375px) {
    img {
-    margin: 0px 40px;
    width: 20rem;
   }
 
@@ -36,7 +35,6 @@
 }
 @media (max-width: 768px) {
    img {
-    margin: 0px 100px;
    width: 50rem;
   }
 
@@ -46,11 +44,6 @@
   }
 }
 
-
-
-
-
-
 #image-container {
   text-align: center;
   margin-bottom: 1rem;
@@ -58,38 +51,7 @@
 
 #random-image {
   width: 300px;
-  height: 300px;
+  height: 200px;
   object-fit: cover;
 }
 
-.facebook,
-.twitter,
-.linkedin,
-.reddit,
-.whatsapp,
-.telegram {
-  margin: 0 0.5rem;
-  text-decoration: none;
-  color: #fff;
-  background-color: #3b5998;
-  border-radius: 50%;
-  padding: 0.5rem;
-}
-
-.facebook:hover,
-.twitter:hover,
-.linkedin:hover,
-.reddit:hover,
-.whatsapp:hover,
-.telegram:hover {
-  opacity: 0.8;
-}
-
-.fa-facebook,
-.fa-twitter,
-.fa-linkedin,
-.fa-reddit,
-.fa-whatsapp,
-.fa-telegram {
-  font-size: 1.5rem;
-}
