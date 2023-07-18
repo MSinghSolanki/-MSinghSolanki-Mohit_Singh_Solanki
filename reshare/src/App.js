@@ -1,89 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import './App.css';
-
-// const ShareButtons = () => {
-//   const [imageUrl, setImageUrl] = useState('');
-
-//   useEffect(() => {
-//     fetchRandomImage();
-//   }, []);
-
-//   const fetchRandomImage = async () => {
-//     try {
-//       const response = await axios.get('https://picsum.photos/200/300');
-//       const imageUrl = response.request.responseURL;
-//       setImageUrl(imageUrl);
-//     } catch (error) {
-//       console.error('Failed to fetch random image:', error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     const link = encodeURI('https://picsum.photos/');
-//     const encodedImageUrl = encodeURIComponent(imageUrl);
-
-//     const msg = encodeURIComponent('Hey, I found this article');
-
-//     const fb = document.querySelector('.facebook');
-//     fb.href = `https://www.facebook.com/share.php?u=${link}&picture=${encodedImageUrl}`;
-
-//     const twitter = document.querySelector('.twitter');
-//     twitter.href = `http://twitter.com/share?&url=${link}&text=${msg}&hashtags=javascript,programming&media=${encodedImageUrl}`;
-
-//     const whatsapp = document.querySelector('.whatsapp');
-//     whatsapp.href = `https://api.whatsapp.com/send?text=${msg}: ${link} ${encodedImageUrl}`;
-
-//     // Update meta tags for social media sharing
-//     const metaTags = document.getElementsByTagName('meta');
-//     for (let i = 0; i < metaTags.length; i++) {
-//       if (metaTags[i].getAttribute('property') === 'og:image') {
-//         metaTags[i].setAttribute('content', imageUrl);
-//       }
-//     }
-//   }, [imageUrl]);
-
-//   return (
-//     <div id="share-buttons">
-//       <div id="image-container">
-//         <img id="random-image" src={imageUrl} alt="Random Image" />
-//       </div>
-//       <a className="facebook" href="#" target="_blank" rel="noopener noreferrer">
-//         <i className="fab fa-facebook"></i>
-//       </a>
-//       <a className="twitter" href="#" target="_blank" rel="noopener noreferrer">
-//         <i className="fab fa-twitter"></i>
-//       </a>
-//       <a className="whatsapp" href="#" target="_blank" rel="noopener noreferrer">
-//         <i className="fab fa-whatsapp"></i>
-//       </a>
-//     </div>
-//   );
-// };
-
-// export default ShareButtons;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -173,21 +87,31 @@ const App = () => {
     {renderMetaTags()}
    </Helmet>
 
-    <div id="image-container">
-      <img id="random-image" src={imageUrl} alt="Random Image" />
+   <div className="header">
+        <h1>Image Share</h1>
+      </div>
+
+      <div>
+        <div id="image-container">
+          <img id="random-image" src={imageUrl} alt="Random Image" />
+        </div>
+        <div id="btn">
+          <FacebookShareButton url={getShareUrl()} quote="Check out this random image!">
+            <FacebookIcon size={32} />
+          </FacebookShareButton>
+          <WhatsappShareButton url={getShareUrl()}>
+            <WhatsappIcon size={32} />
+          </WhatsappShareButton>
+          <TwitterShareButton url={getShareUrl()} title="Check out this random image!">
+            <TwitterIcon size={32} />
+          </TwitterShareButton>
+        </div>
+      </div>
+
+      <div className="footer">
+        You can share Images with Friends and family
+      </div>
     </div>
-    <div id="btn">
-      <FacebookShareButton url={getShareUrl()} quote="Check out this random image!">
-        <FacebookIcon size={32} />
-      </FacebookShareButton>
-      <WhatsappShareButton url={getShareUrl()}>
-        <WhatsappIcon size={32} />
-      </WhatsappShareButton>
-      <TwitterShareButton url={getShareUrl()} title="Check out this random image!">
-        <TwitterIcon size={32} />
-      </TwitterShareButton>
-    </div>
-  </div>
 );
 };
 
